@@ -1,5 +1,9 @@
 require 'json'
 
+file_name = ARGV[0] || 'report.txt'
+$stdout = File.new(file_name, 'w')
+$stdout.sync = true
+
 path = File.join(File.dirname(__FILE__), '../data/products.json')
 file = File.read(path)
 products_hash = JSON.parse(file)
