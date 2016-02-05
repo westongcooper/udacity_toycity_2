@@ -1,0 +1,65 @@
+commit ea5f5d7e8205c4798d1e1799a8f26887b8e962c1
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Fri Feb 5 00:29:06 2016 -0500
+
+    more refactoring
+
+ lib/app.rb | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
+
+commit c9c7b8413d236c679a5759ecdfd37ac4f7b09c1b
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 23:53:14 2016 -0500
+
+    create tally and sum methods; remove nested iteration
+
+ lib/app.rb | 36 +++++++++++++++---------------------
+ 1 file changed, 15 insertions(+), 21 deletions(-)
+
+commit 34263393f909947d097d6e82d682126b68b4b5d9
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 23:03:05 2016 -0500
+
+    separate ascii
+
+ lib/app.rb       | 62 ++++++++++++++++++--------------------------------------
+ support/ascii.rb | 33 ++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+), 42 deletions(-)
+
+commit d481bfae615e60733abe8111aeb14d0d1ab16b89
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 21:46:18 2016 -0500
+
+    basic modularization
+
+ lib/app.rb | 160 +++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 92 insertions(+), 68 deletions(-)
+
+commit 953b8589fd3d3a36b931c446551f3761cab984f1
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 21:23:02 2016 -0500
+
+    Added 'Sales Report' ASCII Art ( it was in the rubric )
+
+ lib/app.rb | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+commit bde6567e9a72a304619dd97023b5a925833fa2e3
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 21:01:55 2016 -0500
+
+    redirect console to file
+
+ lib/app.rb | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit fc4077740dfbff17e3bcb96c8a342aaed83dba66
+Author: Weston Cooper <weston@westoncooper.com>
+Date:   Thu Feb 4 20:42:11 2016 -0500
+
+    finished
+
+ README.md          | 29 ++++++++++++++++
+ data/products.json | 97 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/app.rb         | 73 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 199 insertions(+)
