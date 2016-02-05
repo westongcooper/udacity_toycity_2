@@ -1,10 +1,10 @@
 require 'json'
-require "pry-byebug"
+require_relative "../support/ascii.rb"
 
 def create_output_file
   file_name = ARGV[0] || 'report.txt'
-  $stdout = File.new(file_name, 'w')
-  $stdout.sync = true
+  $> = File.new(file_name, 'w')
+  $>.sync = true
 end
 
 def parse_products_json
@@ -13,33 +13,17 @@ def parse_products_json
   JSON.parse(file)
 end
 
+def output_header
+  Ascii.sales_report
+  output_todays_date
+end
+
 def output_todays_date
   puts "Date: " + Time.new.strftime("%B %d, %Y")
 end
 
-def output_header
-  puts "  _____       _             _____                       _   "
-  puts " / ____|     | |           |  __ \\                     | |  "
-  puts "| (___   __ _| | ___  ___  | |__) |___ _ __   ___  _ __| |_ "
-  puts " \\___ \\ / _` | |/ _ \\/ __| |  _  // _ \\ '_ \\ / _ \\| '__| __|"
-  puts " ____) | (_| | |  __/\\__ \\ | | \\ \\  __/ |_) | (_) | |  | |_ "
-  puts "|_____/ \\__,_|_|\\___||___/ |_|  \\_\\___| .__/ \\___/|_|   \\__|"
-  puts "                                      | |                   "
-  puts "                                      |_|                   "
-  puts "\n"
-end
-
 def output_products products_hash
-  puts "                     _            _       "
-  puts "                    | |          | |      "
-  puts " _ __  _ __ ___   __| |_   _  ___| |_ ___ "
-  puts "| '_ \\| '__/ _ \\ / _` | | | |/ __| __/ __|"
-  puts "| |_) | | | (_) | (_| | |_| | (__| |_\\__ \\"
-  puts "| .__/|_|  \\___/ \\__,_|\\__,_|\\___|\\__|___/"
-  puts "| |                                       "
-  puts "|_|                                       "
-  puts "\n"
-
+  Ascii.products
   products_hash["items"].each do |item|
     total_item_sales = 0
     sales_count = item['purchases'].count
@@ -62,20 +46,8 @@ def output_products products_hash
   end
 end
 
-def output_brands products_hash
-  puts " _                         _     "
-  puts "| |                       | |    "
-  puts "| |__  _ __ __ _ _ __   __| |___ "
-  puts "| '_ \\| '__/ _` | '_ \\ / _` / __|"
-  puts "| |_) | | | (_| | | | | (_| \\__ \\"
-  puts "|_.__/|_|  \\__,_|_| |_|\\__,_|___/"
-  puts
-
-
-  brands = {}
-  products_hash["items"].each do |item|
-      (brands[item["brand"]] ||= []) << item
-  end
+def output_brands brands
+  Ascii.brands
 
   brands.each do |brand,toys|
     brand_toys_total_cost = brand_revenue = 0
@@ -98,13 +70,19 @@ def output_brands products_hash
   end
 end
 
+def convert_to_brands_hash products_hash
+  brands = {}
+  products_hash["items"].each { |item| (brands[item["brand"]] ||= []) << item }
+  brands
+end
+
 def start
   create_output_file
   output_header
-  output_todays_date
   products_hash = parse_products_json
   output_products(products_hash)
-  output_brands(products_hash)
+  brands_hash = convert_to_brands_hash(products_hash)
+  output_brands(brands_hash)
 end
 
 start
