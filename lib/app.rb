@@ -27,26 +27,30 @@ def output_products products_hash
 
   products_hash["items"].each do |item|
     sales_count = item['purchases'].count
-    total_item_sales = tally(item['purchases'], 'price')
+    total_item_sales = tally_hash_from_array(item['purchases'], 'price')
     average_sale_price = total_item_sales / sales_count
-    average_discount_percent = (1 - (average_sale_price / item['full-price'].to_f)) * 100
+    ave_discount_percent = discount_percent(average_sale_price, item['full-price'].to_f)
 
     puts "Name: #{item['title']}"
     puts "Retail price: $#{item['full-price']}"
     puts "Number of purchases: #{sales_count}"
     puts "Total sales amount: $#{total_item_sales}"
     puts "Average price of each product: $#{average_sale_price}"
-    puts "Average discount: #{average_discount_percent.round(1)}%"
+    puts "Average discount: #{ave_discount_percent.round(1)}%"
     puts "\n"
   end
+end
+
+def discount_percent sale_price, full_price
+  (1 - (sale_price / full_price)) * 100
 end
 
 def output_brands brands
   Ascii.brands
   brands.each do |brand,toys|
-    brand_toys_total_cost = tally(toys, 'full-price')
-    brand_revenue = sum(toys.map {|toy| tally(toy['purchases'], 'price')})
-    average_price = brand_toys_total_cost / toys.count
+    brand_toys_total_value = tally_hash_from_array(toys, 'full-price')
+    brand_revenue = calculate_revenue(toys)
+    average_price = brand_toys_total_value / toys.count
 
     puts "Brand: #{brand}"
     puts "Number of Toys: #{toys.count}"
@@ -56,12 +60,16 @@ def output_brands brands
   end
 end
 
-def tally items, context
-  sum(items.map { |item| item[context].to_f })
+def sum_array array
+  array.inject(0){|sum,x| sum + x }
 end
 
-def sum array
-  array.inject(0){|sum,x| sum + x }
+def tally_hash_from_array array, context
+  sum_array(array.map { |hash| hash[context].to_f })
+end
+
+def calculate_revenue toys
+  sum_array(toys.map {|toy| tally_hash_from_array(toy['purchases'], 'price')})
 end
 
 def convert_to_brands_hash products_hash
