@@ -8,7 +8,16 @@ path = File.join(File.dirname(__FILE__), '../data/products.json')
 file = File.read(path)
 products_hash = JSON.parse(file)
 
-puts "\nDate: " + Time.new.strftime("%B %d, %Y")
+puts "  _____       _             _____                       _   "
+puts " / ____|     | |           |  __ \\                     | |  "
+puts "| (___   __ _| | ___  ___  | |__) |___ _ __   ___  _ __| |_ "
+puts " \\___ \\ / _` | |/ _ \\/ __| |  _  // _ \\ '_ \\ / _ \\| '__| __|"
+puts " ____) | (_| | |  __/\\__ \\ | | \\ \\  __/ |_) | (_) | |  | |_ "
+puts "|_____/ \\__,_|_|\\___||___/ |_|  \\_\\___| .__/ \\___/|_|   \\__|"
+puts "                                      | |                   "
+puts "                                      |_|                   "
+
+puts "Date: " + Time.new.strftime("%B %d, %Y")
 
 puts "                     _            _       "
 puts "                    | |          | |      "
